@@ -92,6 +92,7 @@
                                     </div>
                                     <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
                                     <form class="uk-grid-small" uk-grid>
+                                        {% csrf_token %}
                                         <div class="uk-width-expand">
                                             <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
                                         </div>
