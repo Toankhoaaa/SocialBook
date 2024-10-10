@@ -513,8 +513,10 @@ img,
 video {
   max-width: 100%;
   height: auto;
+  width: 100%;
+  object-fit: cover;
 }
-
+s
 .container{
   width: 100%;
 }
