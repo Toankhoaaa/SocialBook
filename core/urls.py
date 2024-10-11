@@ -5,6 +5,7 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('upload/', views.upload, name='upload'),
     path('profile/<str:pk>', views.profile, name='profile'),
+    path('follow/', views.follow, name='follow'),
     path('liked-post/', views.liked_post, name='liked-post'),
     path('signup/',views.signup, name='signup'),
     path('signin/',views.signin, name='signin'),
