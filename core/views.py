@@ -3,9 +3,11 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from sqlalchemy.dialects.mssql.information_schema import views
+
 from .models import Profile, Post, likedPost, folowedPost
 # Create your views here.
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
@@ -21,7 +23,7 @@ def index(request):
         })
 
     return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts, 'post_list': post_list})
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
 def settings(request):
     user_profile = Profile.objects.get(user  = request.user)
 
@@ -47,7 +49,7 @@ def settings(request):
             user_profile.save()
         return redirect('settings')
     return render(request, 'setting.html' , {'user_profile': user_profile})
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
 def profile(request, pk):
     user_object = User.objects.get(username=pk)
     user_profile = Profile.objects.get(user=user_object)
@@ -71,7 +73,14 @@ def profile(request, pk):
         'button_text': button_text,
     }
     return render(request, 'profile.html', context)
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
+def search(request):
+    if request.method == 'POST':
+        userSearch = request.POST['username']
+        return profile(request, userSearch)
+    else:
+        return redirect('/')
+@login_required(login_url = 'auth_page')
 def follow(request):
     if request.method == 'POST':
         user = request.POST['user']
@@ -87,7 +96,7 @@ def follow(request):
             return redirect('/profile/' + user)
     else:
         return redirect('/')
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
 def upload(request):
     if request.method == 'POST':
         user = request.user.username
@@ -100,7 +109,7 @@ def upload(request):
         return redirect('/')
     else:    
         return redirect('signin')
-@login_required(login_url = 'signin')
+@login_required(login_url = 'auth_page')
 def liked_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
@@ -117,8 +126,17 @@ def liked_post(request):
         post.no_of_likes = post.no_of_likes - 1
         post.save()
         return redirect('/')
-def signup(request):
+def auth_page(request):
     if request.method == 'POST':
+        if 'signin-form' in request.POST:
+            return signin(request)
+        elif 'signup-form' in request.POST:
+            return signup(request)
+        return render(request, 'setting.html')
+    else:
+        return render(request, 'auth.html')
+def signup(request):
+    # if request.method == 'POST':
         # Process form data
         username = request.POST.get('username')
         email  = request.POST.get('email')
@@ -133,7 +151,7 @@ def signup(request):
             # Check if email already exists
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already exists')
-                return redirect('signup')
+                return redirect('auth_page')
             else:
                 # Create new user
                 user = User.objects.create_user(username=username, email=email, password=password)
@@ -150,24 +168,22 @@ def signup(request):
                 return redirect('settings')
         else:
             messages.info(request, 'Passwords do not match')
-            return redirect('signup')        
-    else:
-        return render(request, 'signup.html')
+            return redirect('auth_page')
+    # else:
+    #     return render(request, 'auth.html')
 def signin(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
 
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            auth.login(request, user)
-            return redirect('/')
-        else:
-            messages.info(request, 'Username or password is incorrect')
-            return redirect('signin')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        auth.login(request, user)
+        return redirect('/')
     else:
-        return render(request, 'signin.html')
-@login_required(login_url = 'signin')
+        messages.error(request, 'Username or password is incorrect')
+        return redirect('auth_page')
+
+@login_required(login_url = 'auth_page')
 def logout(request):
     auth.logout(request)
-    return redirect('signin')
+    return redirect('auth_page')
