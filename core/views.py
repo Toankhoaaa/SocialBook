@@ -17,12 +17,23 @@ def index(request):
         # Lấy profile của người dùng đã đăng bài
         user_img = User.objects.get(username=post.user)
         user_profile_post = Profile.objects.get(user=user_img)
-        post_list.append({
-            'post': post,
-            'profile_image': user_profile_post.profileimg,  # Lấy ảnh profile của người dùng
-        })
+        likes = likedPost.objects.filter(username=user_object, post_id=post.id).first()
+        if likes == None:
+            post_list.append({
+                'post': post,
+                'profile_image': user_profile_post.profileimg,
+                'username_post': user_img.username,
+            })
+        else:
+            postLiked = likedPost.objects.get(username=user_object, post_id=post.id)
+            post_list.append({
+                'post': post,
+                'type': postLiked,
+                'profile_image': user_profile_post.profileimg,
+                'username_post': user_img.username,
+            })
 
-    return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts, 'post_list': post_list})
+    return render(request, 'home.html', {'user_object': user_object ,'user_profile': user_profile, 'post_list': post_list})
 @login_required(login_url = 'auth_page')
 def settings(request):
     user_profile = Profile.objects.get(user  = request.user)
@@ -113,12 +124,14 @@ def upload(request):
 def liked_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
+    type_of = request.GET.get('type_of')
     post = Post.objects.get(id=post_id)
     like_filter = likedPost.objects.filter(post_id=post_id, username=username).first()
     if like_filter == None:
-        new_like = likedPost.objects.create(username=username, post_id=post_id)
+        new_like = likedPost.objects.create(username=username, post_id=post_id, type_of=type_of)
         new_like.save()
         post.no_of_likes = post.no_of_likes + 1
+
         post.save()
         return redirect('/')
     else:
@@ -136,41 +149,38 @@ def auth_page(request):
     else:
         return render(request, 'auth.html')
 def signup(request):
-    # if request.method == 'POST':
-        # Process form data
-        username = request.POST.get('username')
-        email  = request.POST.get('email')
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')    
+    # Process form data
+    username = request.POST.get('username')
+    email  = request.POST.get('email')
+    password = request.POST.get('password')
+    password2 = request.POST.get('password2')
 
-        if password == password2:
-            # Check if username already exists
-            if User.objects.filter(username=username).exists():
-                messages.info(request, 'Username already exists')
-                return redirect('signup')
-            # Check if email already exists
-            elif User.objects.filter(email=email).exists():
-                messages.info(request, 'Email already exists')
-                return redirect('auth_page')
-            else:
-                # Create new user
-                user = User.objects.create_user(username=username, email=email, password=password)
-                user.save()
-                #Log user in and  redirect  to settings page
-                user_login = auth.authenticate(username=username, email=email, password=password)
-                auth.login(request, user_login)
-
-
-                #create a profile for the new user
-                new_user = User.objects.get(username=username)
-                new_profile = Profile.objects.create(user=new_user, id_user=new_user.id)
-                new_profile.save()
-                return redirect('settings')
-        else:
-            messages.info(request, 'Passwords do not match')
+    if password == password2:
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.info(request, 'Username already exists')
+            return redirect('signup')
+        # Check if email already exists
+        elif User.objects.filter(email=email).exists():
+            messages.info(request, 'Email already exists')
             return redirect('auth_page')
-    # else:
-    #     return render(request, 'auth.html')
+        else:
+            # Create new user
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            #Log user in and  redirect  to settings page
+            user_login = auth.authenticate(username=username, email=email, password=password)
+            auth.login(request, user_login)
+
+
+            #create a profile for the new user
+            new_user = User.objects.get(username=username)
+            new_profile = Profile.objects.create(user=new_user, id_user=new_user.id)
+            new_profile.save()
+            return redirect('settings')
+    else:
+        messages.info(request, 'Passwords do not match')
+        return redirect('auth_page')
 def signin(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -182,7 +192,6 @@ def signin(request):
     else:
         messages.error(request, 'Username or password is incorrect')
         return redirect('auth_page')
-
 @login_required(login_url = 'auth_page')
 def logout(request):
     auth.logout(request)

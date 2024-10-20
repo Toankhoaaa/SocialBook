@@ -68,7 +68,7 @@ let createMessageModal = function(imgSrc, username){
     
     var profileLink = document.createElement('a');
     profileLink.classList.add('profileLink');
-    profileLink.href = "#"; // Đường dẫn href tùy chỉnh
+    profileLink.href = "#";
 
     var profileImage = document.createElement('img');
     profileImage.classList.add('profileImages');
@@ -290,7 +290,7 @@ let createMessageModal = function(imgSrc, username){
     var audio = document.createElement('audio');
     audio.id = 'audioTon';
     var source = document.createElement('source');
-    source.src = './assets/audio/audio_messenger.mp3';
+    source.src = "{% static './assets/audio/audio_messenger.mp3' %}";
     source.type = 'audio/mp3';
     audio.appendChild(source);
 

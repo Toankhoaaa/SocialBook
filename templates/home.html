@@ -1,0 +1,634 @@
+{% load static %}
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'favicon.png' %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="{% static './assets/css/home.css' %}">
+    <link rel="stylesheet" href="{% static './assets/css/message.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>TVT Social</title>
+ </head>
+ <body>
+    <nav>
+        <div class="container">
+            <div class="box" style="display: flex;">
+                <h1 class="logo"><i class="fa-solid fa-icons" style="color: #004880;"></i></h1>
+                <div class="search-bar">
+                    <i class="uil uil-search"></i>
+                    <input type="text" placeholder="Search user..."/>
+                </div>
+            </div>
+            <div class="create">
+                <div class="btn-list">
+                    <button class="btn-nav btn-list-nav"><i class="fa-solid fa-list-ul"></i></button>
+                    <button id="messages-notifications" class="btn-nav btn-mess-nav"><i class="fa-brands fa-facebook-messenger"><small class="notification-count">6</small></i></button>
+                    <div class="nav-notifi">
+                        <button id="notifications" class="btn-nav btn-notifi-nav"><i class="fa-solid fa-bell"><small class="notification-count">6</small></i></button>
+                        <div class="notifications-popup" style="display: none;">
+                            <div class="notification">
+                                <div class="profile-pic">
+                                    <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                                </div>
+                                <div class="notification-body">
+                                    <b>Abigail Willey</b> accepted your friend request
+                                    <small class="text-muted">2 DAYS AGO</small>
+                                </div>
+                            </div>
+                            <div class="notification">
+                                <div class="profile-pic">
+                                    <img src="https://i.pinimg.com/474x/e1/d6/32/e1d632b7d8ba9ffd34318a09ddf1b275.jpg" />
+                                </div>
+                                <div class="notification-body">
+                                    <b>Varun Nair</b> commented on your post
+                                    <small class="text-muted">1 HOUR AGO</small>
+                                </div>
+                            </div>
+                            <div class="notification">
+                                <div class="profile-pic">
+                                    <img src="https://i.pinimg.com/280x280_RS/60/72/af/6072af5d0841567c677a9e7597501563.jpg" />
+                                </div>
+                                <div class="notification-body">
+                                    <b>Marry Opmong</b> and 210 other liked your post
+                                    <small class="text-muted">4 MINUTES AGO</small>
+                                </div>
+                            </div>
+                            <div class="notification">
+                                <div class="profile-pic">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7jXK7iCNJK_u4XvbwTkXPx140LlR1qh2XoihxvkMgM2ZvViJaIxaPFleTUJ7SBp9xBw&usqp=CAU" />
+                                </div>
+                                <div class="notification-body">
+                                    <b>Wilson Fisk</b> started following you
+                                    <small class="text-muted"> 11 HOURS AGO</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-pic">
+                    <img class="img-profile-nav" src="{{ user_profile.profileimg.url }}" />
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <div class="container">
+            <div class="left">
+                <div class="sidebar">
+                    <a class="menu-item active">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
+                    </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-compass"></i></span>
+                        <h3>Explore</h3>
+                    </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-bookmark"></i></span>
+                        <h3>Bookmarks</h3>
+                    </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-analytics"></i></span>
+                        <h3>Analytics</h3>
+                    </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-palette"></i></span>
+                        <h3>Theme</h3>
+                    </a>
+                    <a href="{% url 'settings' %}" class="menu-item">
+                        <span><i class="uil uil-setting"></i></span>
+                        <h3>Settings</h3>
+                    </a>
+                    
+                    <a href="{% url 'logout' %}" class="menu-item">
+                        <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                        <h3>Logout</h3>
+                    </a>
+    
+                </div>
+            </div>
+    
+            <div class="middle">
+                <div class="box-story">
+                    <div class="btn-str btn-str-left">
+                        <button class="btn-chevron"><i class="fa-solid fa-chevron-left"></i></button>
+                    </div>
+                    <div class="btn-str btn-str-right">
+                        <button class="btn-chevron"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="stories">
+                        <div class="story" style="background: url('https://artlive.vn/wp-content/uploads/2024/04/Snapinsta.app_433145141_18311098003178136_7817750544051199995_n_1080-819x1024.jpg') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="{{ user_profile.profileimg.url }}" alt="" />
+                            </div>
+                            <p class="name">Your Story</p>
+                        </div>
+                        <div class="story" style="background: url('https://i.pinimg.com/1200x/f7/1d/c6/f71dc699e49a0ece1ff62a5c73accf7f.jpg') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7jXK7iCNJK_u4XvbwTkXPx140LlR1qh2XoihxvkMgM2ZvViJaIxaPFleTUJ7SBp9xBw&usqp=CAU" alt="" />
+                            </div>
+                            <p class="name">Lilla James</p>
+                        </div>
+                        <div class="story" style="background: url('https://i.pinimg.com/474x/9e/e6/d6/9ee6d64d7322828c38c3255ca0a3bd67.jpg') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/736x/1f/6f/d7/1f6fd7118d2c870236ef17544fd6f140.jpg" alt="" />
+                            </div>
+                            <p class="name">Jasmine Singh</p>
+                        </div>
+                        <div class="story" style="background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2PKboFGuRTxvok_3X9UOTIifk_znwt8PN6g&s') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/236x/95/c4/96/95c496f64dd0e4c6f75f96c0abbbea6b.jpg" alt="" />
+                            </div>
+                            <p class="name">Celina Fernandes</p>
+                        </div>
+                        <div class="story" style="background: url('https://i.pinimg.com/474x/65/80/c0/6580c079b360ca086827b843e2569f46.jpg') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/736x/6d/4b/de/6d4bde9293ac23d4711c828859af20e4.jpg" alt="" />
+                            </div>
+                            <p class="name">Mia Addams</p>
+                        </div>
+                        <div class="story" style="background: url('https://i0.wp.com/hindipro.com/wp-content/uploads/2021/05/dp-for-girls-min.jpg?resize=438%2C500') no-repeat center center/cover;">
+                            <div class="profile-pic">
+                                <img src="https://64.media.tumblr.com/7b28774544438d73ca8c1daad11402e0/88958e5f55a67155-fd/s250x400/a9ef3dad54f6c57a53fdeef1a793f0143a9aea27.jpg" alt="" />
+                            </div>
+                            <p class="name">Christy Kahea</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <form class="create-post">
+                    <div class="profile-pic">
+                        <img src="{{ user_profile.profileimg.url }}" alt="" />
+                    </div>
+                    <input type="text" placeholder="What's on your mind ?" id="create-post"/>
+                    <div class="post-image">
+                        <button type="button" class="btn-post-image">
+                            <i class="fa-regular fa-file-image"></i>
+                        </button>
+                    </div>
+                    <input type="submit" value="Post" class="btn btn-primary" />
+                </form>
+                <div class="modal-post" style="display:none;">
+                    <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" class="post-image-popup">
+                        {% csrf_token %}
+                        <header>
+                            <h3 class="tittle">Create Post</h3>
+                        </header>
+                        <div class="user-post">
+                            <div class="profile-pic">
+                                <img src="{{ user_profile.profileimg.url }}" alt="" />
+                            </div>
+                            <div class="info">
+                                <h5>{{ user_object.username }}</h5>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="caption">
+                                <textarea name="caption" rows="4" placeholder="What's on your mind?"></textarea>
+                            </div>
+                            <div class="image">
+                                <div class="box-add-image">
+                                    <input type="file" name="image_upload" class="input-image" hidden name="" id="">
+                                    <button type="button" class="add-image"><i class="fa-solid fa-file-circle-plus"></i></button>
+                                    <span> Add Image/Video </span>
+                                    <button type="submit" style="display: none;" class="btn-remove-img btn-str btn-chevron"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Post">
+                    </form>
+                </div>
+    
+                <div class="feeds">
+                    {% for post in post_list %}
+                        <div class="feed">
+                            <div class="head"></div>
+                            <div class="user">
+                                <div style="display: flex; gap: 1rem;">
+                                    <div class="profile-pic">
+                                        <img src="{{ post.profile_image.url }}" alt="" />
+                                    </div>
+                                    <div class="info">
+                                        <h3>{{ post.username_post }}</h3>
+                                        <small>{{ post.post.created_at }}</small>
+                                    </div>
+                                </div>
+                                <span class="edit"><i class="uil uil-ellipsis-h"></i></span>
+                            </div>
+
+                            <div class="caption">
+                                <p>
+                                    {{ post.post.caption }}
+                                </p>
+                            </div>
+
+                            <div class="photo">
+                                <img src="{{ post.post.image.url }}" alt="" />
+                            </div>
+        
+                            <div class="action-button">
+                                <div class="interaction-button">
+                                    <span id="btn-like-{{ post.post.id }}">
+                                        {% if post.type.type_of == 'like' %}
+                                            <span class="icon-like">
+                                                    <i class="fa-solid fa-thumbs-up" style="color: var(--color-primary);"></i>
+                                            </span>
+                                            <span class="note tag-like" style="color: var(--color-primary);">Like</span>
+                                        {% elif post.type.type_of == 'love' %}    
+                                            <span class="icon-like">
+                                                    ❤️
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(243, 62, 88);">Yêu Thích</span>
+                                        {% elif post.type.type_of == 'love-love' %} 
+                                            <span class="icon-like">
+                                                    😘
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(247, 177, 37)">Thương Thương</span>
+                                        {% elif post.type.type_of == 'haha' %}
+                                            <span class="icon-like">
+                                                    😂
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(247, 177, 37);">HaHa</span>
+                                        {% elif post.type.type_of == 'wow' %}   
+                                            <span class="icon-like">
+                                                    😯
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(233, 113, 15);">Wow</span>    
+                                        {% elif post.type.type_of == 'sad' %}
+                                            <span class="icon-like">
+                                                    😢
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(247, 177, 37);">Buồn</span>
+                                        {% elif post.type.type_of == 'angry' %}   
+                                            <span class="icon-like">
+                                                    😡
+                                            </span>
+                                            <span class="note tag-like" style="color: rgb(233, 113, 15);">Tức Giận</span>
+                                        {% else %}   
+                                            <span class="icon-like">
+                                                    <i class="uil uil-thumbs-up"></i>
+                                            </span>
+                                            <span class="note tag-like">Like</span>
+                                        {% endif %}
+                                    </span>
+                                    <span>
+                                        <i class="uil uil-comment"></i>
+                                        <span class="note">1.5k</span>
+                                    </span>
+                                    <span>
+                                        <i class="uil uil-share"></i>
+                                        <span class="note">10k</span>
+                                    </span>
+                                    <ul class="type-of-likes" id = "like-{{ post.post.id }}" style="display: none;">
+                                        <li class="like">👍</li>
+                                        <li class="love">❤️</li>
+                                        <li class="love-love">😘</li>
+                                        <li class="haha">😂</li>
+                                        <li class="wow">😯</li>
+                                        <li class="sad">😢</li>
+                                        <li class="angry">😡</li>
+                                    </ul>
+                                </div>
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark"></i></span>
+                                </div>
+                            </div>
+        
+                            <div class="liked-by">
+                                <span><img src="{% static 'images/haha.png' %}" /></span>
+                                <span><img src="{% static 'images/love-love.png' %}" /></span>
+                                <span><img src="{% static 'images/love.png' %}" /></span>
+                                <p>Liked by <b>Enrest Achiever</b>snd <b>220 others</b></p>
+                            </div>
+                            
+                            <div class="comment-text">
+                                <form class="comment-post">
+                                    <div class="profile-pic">
+                                        <img src="{{ user_profile.profileimg.url }}" alt="">
+                                    </div>
+                                    <input type="text" placeholder="Comment..." name="" id="">
+                                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $('#like-{{ post.post.id }} li').on('click', function (e){
+                                    e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+                                    var post_id = '{{ post.post.id }}'; // Lấy post_id từ template
+                                    var type_of = $(this).attr('class');
+
+                                    console.log("type_of: ", type_of)
+                                    
+                                    var url = `/liked-post/?post_id=${post_id}&type_of=${type_of}`;
+                                    
+                                    $.ajax({
+                                        url: url,
+                                        type: 'GET', 
+                                        data: {
+                                            post_id: post_id,
+                                            type_of: type_of
+                                        }
+                                    });
+                                })
+                                $('#btn-like-{{ post.post.id }}').on('click', function (e){
+                                    e.preventDefault();
+                                    var tag = $('#btn-like-{{ post.post.id }} .tag-like').text();
+                                    var post_id = '{{ post.post.id }}'
+                                    var url = `/liked-post/?post_id=${post_id}`;
+                                    if(tag != 'Like'){
+                                        $.ajax({
+                                            url: url,
+                                            type: 'GET', 
+                                            data: {
+                                                post_id: post_id,
+                                            }
+                                        });
+                                    }
+                                });
+
+                            </script>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+    
+            <div class="right">
+                <div class="messages">
+                    <div class="heading">
+                        <h4>Messages</h4>
+                        <span><i class="uil uil-edit"></i></span>
+                    </div>
+    
+                    <div class="search-bar">
+                        <span><i class="uil uil-search"></i></span>
+                        <input
+                    type="text"
+                    placeholder="Search Messages"
+                    id="message-search"
+                />
+                    </div>
+    
+                    <div class="category">
+                        <h6 class="active">Primary</h6>
+                        <h6>General</h6>
+                        <h6 class="message-requests">Requests(7)</h6>
+                    </div>
+                    <div class="list-message">
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://64.media.tumblr.com/2d678d77b051ee352d722d1f7fd2c029/88958e5f55a67155-7d/s250x400/74d69559d55329719bb0a50d8e9d77cbf0ec6da0.jpg" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Kareena Joshua</h5>
+                                <p class="text-muted">Just woke up bruh..</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://64.media.tumblr.com/7b28774544438d73ca8c1daad11402e0/88958e5f55a67155-fd/s250x400/a9ef3dad54f6c57a53fdeef1a793f0143a9aea27.jpg" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Dan Smith</h5>
+                                <p class="text-bold">2 New Messages</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://res.cloudinary.com/freecodez/image/upload/v1698067298/images/fy8azbqxhgdrbbijhipe.webp" />
+                            </div>
+                            <div class="message-body">
+                                <h5>Chris Brown</h5>
+                                <p class="text-muted">Lol u right</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7jXK7iCNJK_u4XvbwTkXPx140LlR1qh2XoihxvkMgM2ZvViJaIxaPFleTUJ7SBp9xBw&usqp=CAU" />
+                            </div>
+                            <div class="message-body">
+                                <h5>Lana Rose</h5>
+                                <p class="text-bold">Birthday tomorrow!!</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/236x/95/c4/96/95c496f64dd0e4c6f75f96c0abbbea6b.jpg" />
+                            </div>
+                            <div class="message-body">
+                                <h5>Varun Nair</h5>
+                                <p class="text-muted">Ssup?</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/736x/6d/4b/de/6d4bde9293ac23d4711c828859af20e4.jpg" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Jahnvi Doifode</h5>
+                                <p class="text-bold">3 New Messages</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://giadinh.mediacdn.vn/296230595582509056/2024/3/17/be-pam8-17106622391232102729692.jpg" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Pamiuoi</h5>
+                                <p class="text-bold">3 New Messages</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCUvSLipr3Omi-vuTdR3cjav8dZNM-8ib3Uw&s" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Pamela</h5>
+                                <p class="text-bold">3 New Messages</p>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="profile-pic">
+                                <img src="https://ttol.vietnamnetjsc.vn/images/2024/09/25/09/38/pam-002.jpg" />
+                                <div class="active"></div>
+                            </div>
+                            <div class="message-body">
+                                <h5>Davis Pam</h5>
+                                <p class="text-bold">3 New Messages</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="friend-requests">
+                    <h4>Requests</h4>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/736x/6d/4b/de/6d4bde9293ac23d4711c828859af20e4.jpg" />
+                            </div>
+                            <div>
+                                <h5>Wilson Fisk</h5>
+                                <p class="text-muted">8 mutual friends</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7jXK7iCNJK_u4XvbwTkXPx140LlR1qh2XoihxvkMgM2ZvViJaIxaPFleTUJ7SBp9xBw&usqp=CAU" />
+                            </div>
+                            <div>
+                                <h5>Srishti Tirkey</h5>
+                                <p class="text-muted">2 mutual friends</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div class="profile-pic">
+                                <img src="https://i.pinimg.com/550x/91/7b/a7/917ba7b03ab2aa2fab7b1b3a83a00be3.jpg" />
+                            </div>
+                            <div>
+                                <h5>Christ Kahea</h5>
+                                <p class="text-muted">1 mutual friend</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn">Decline</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modals-message">
+                    <!-- <div class="modal-message">
+                        <form class="mobileSection">
+            
+                            <header class="haderSection">
+                                <div class="imageAndText">
+                                    <div class="imagesDiv">
+                                        <a class="profileLink" href="">
+                                            <img class="profileImages" src="https://res.cloudinary.com/freecodez/image/upload/v1698067298/images/fy8azbqxhgdrbbijhipe.webp">
+                                        </a>
+                                        <h1 class="nameText">
+                                            <a id="profileNameShow" class="profileLink" href="">Mehedi Hasan</a>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="collIcon">
+                                    <ul>
+                                        <li><i class="fa-solid fa-phone"></i></li>
+                                        <li><i class="fa-solid fa-video"></i></li>
+                                        <li class="btn-minimize"><i class="fa-solid fa-minus"></i></li>
+                                        <li class="btn-close"><i class="fa-solid fa-xmark"></i></li>
+                                    </ul>
+                                </div>
+                            </header>
+                
+                
+                            <section class="mainContent">
+                                <div class="meText">
+                                    <div class="basic-infor">
+                                        <div class="profile-img-basic">
+                                            <img src="https://res.cloudinary.com/freecodez/image/upload/v1698067298/images/fy8azbqxhgdrbbijhipe.webp" alt="">
+                                            <h2>Mehedi Hasan</h2>
+                                        </div>
+                                        <div class="infor" style="color: var(--textColorLightHigh)">
+                                            <span>1 Post - 2 maual friends - 3 Follower</span>
+                                            <p>Live in Da Nang</p>
+                                        </div>
+                                    </div> -->
+                
+                                    <!-- <div class="postMe">
+                                        <div></div>
+                                        <div class="textDiv">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                                        </div>
+                                    </div>
+                
+                
+                                    <div class="postYour">
+                                        <div class="textDiv">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                                            <div class="imagesDivMini">
+                                                <a class="profileLink"  href="">
+                                                    <img class="profileImages" src="images/user/mail.jpg">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="postMe">
+                                        <div></div>
+                                        <div class="textDiv">
+                                            <p class="likeiconPost">
+                                                <i class="fa-solid fa-thumbs-up likePost"></i>
+                                            </p>
+                                        </div>
+                                    </div> -->
+                
+                                    
+                                <!-- </div>
+                            </section>
+                
+                
+                            <footer class="footerSection">
+                                <div class="iconSite">
+                                    <ul>
+                                        <li><i class="fa-solid fa-circle-plus"></i></li>
+                                        <li><i class="fa-solid fa-camera"></i></li>
+                                        <li><i class="fa-solid fa-image"></i></li>
+                                        <li><i class="fa-solid fa-microphone"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="inputText">
+                                    <div class="inputTextDiv">
+                                        <input id="inputPostText" type="text" placeholder="Aa">
+                                        <i class="fa-solid fa-face-smile"></i>
+                                    </div>
+                                    <i id="likePost" class="fa-solid fa-thumbs-up likeBtn"></i>
+                                    <i id="textSubmit" class="fa-solid fa-circle-chevron-right likeBtn disNone"></i>
+                                </div>
+                            </footer> -->
+                
+                        <!-- </form>
+                        <audio id="audioTon">
+                            <source src="./assets/audio/audio_messenger.mp3" type="audio/mp3">
+                        </audio> -->
+                </div>
+                </div>
+                <div class="modals-minimize">
+                    <!-- <div class="modal-minimize">
+                        <div class="pic-minimize">
+                            <button class="btn-close-minimize"><i class="fa-solid fa-xmark"></i></button>
+                            <img src="https://res.cloudinary.com/freecodez/image/upload/v1698067298/images/fy8azbqxhgdrbbijhipe.webp" alt="">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </main>
+ </body>
+ <script src="{% static './assets/js/home.js' %}"></script>
+ <script src="{% static './assets/js/story.js' %}"></script>
+ <script src="{% static './assets/js/post.js' %}"></script>
+ <script src="{% static './assets/js/message.js' %}"></script>
+ <script src="{% static './assets/js/likePost.js' %}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/stickyfilljs@2.1.0/dist/stickyfill.min.js"></script>
+ </html>

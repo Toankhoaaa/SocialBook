@@ -69,10 +69,15 @@
     object-fit: cover;
     overflow: hidden;
   }
-  
+
+  .profile-pic img{
+    height: 45px;
+  }
+
   img {
     display: block;
     width: 100%;
+    object-fit: cover;
   }
   
   .btn {
@@ -535,6 +540,10 @@
   .middle .user .edit{
     font-size: 25px;
   }
+
+  .caption p{
+    font-size: 20px;
+  }
   
   .middle .feed .photo {
     border-radius: var(--card-border-radius);
@@ -569,6 +578,58 @@
   
   .middle .liked-by p {
     margin-left: 0.5rem;
+  }
+
+  .interaction-button{
+    position: relative;
+  }
+
+  .interaction-button span{
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .interaction-button span:not(.note, .icon-like){
+    font-size: 25px;
+    margin-right: 15px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .interaction-button span:not(.note, .icon-like):hover{
+    background: var(--color-light);
+  }
+
+  .interaction-button span>.note{
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .interaction-button span:hover{
+    color: var(--color-primary);
+  }
+
+  .interaction-button .type-of-likes{
+    display: flex;
+    gap: 0.5rem;
+    position: absolute;
+    padding: 5px;
+    background: var(--color-white);
+    box-shadow: 0 0 10px var(--color-gray);
+    border-radius: 10px;
+  }
+
+  .interaction-button .type-of-likes li{
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all ease-in-out 0.5s;
+    font-size: 25px;
+  }
+
+  .interaction-button .type-of-likes li:hover{
+    background: var(--color-light);
+    font-size: 30px;
   }
 
   .middle .comment-text .comment-post{
@@ -782,7 +843,7 @@
       z-index: 1;
     }
     .left .notifications-popup::before {
-      display: absolute;
+      position: absolute;
       top: 1.3rem;
       left: calc(20rem - 0.6rem);
     }
