@@ -49,3 +49,17 @@ class folowedPost(models.Model):
 
     def __str__(self):
         return self.user
+
+class Room(models.Model):
+    room_name = models.CharField(max_length=255)
+    def __str(self):
+        return self.room_name
+
+class Message(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    sender = models.CharField(max_length=255)
+    receiver = models.CharField(max_length=255, default='toanle')
+    message = models.TextField()
+
+    def __str(self):
+        return str(self.room)

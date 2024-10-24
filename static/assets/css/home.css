@@ -727,6 +727,10 @@
   .right .profile-pic img {
     border-radius: 50%;
   }
+
+  .right .message-body{
+    line-height: 1.5rem;
+  }
   
   .right .messages .message {
     display: flex;
@@ -743,7 +747,7 @@
   }
   
   .right .messages .message p {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   
   .right .messages .message .profile-pic .active {

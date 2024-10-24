@@ -379,93 +379,20 @@
                         <h6 class="message-requests">Requests(7)</h6>
                     </div>
                     <div class="list-message">
-                        <div class="message">
+                        {% for mess in messages_list %}
+                        	<div class="message">
                             <div class="profile-pic">
-                                <img src="https://64.media.tumblr.com/2d678d77b051ee352d722d1f7fd2c029/88958e5f55a67155-7d/s250x400/74d69559d55329719bb0a50d8e9d77cbf0ec6da0.jpg" />
+                                <img src="{{ mess.receiver_profile_img.url }}" />
                                 <div class="active"></div>
                             </div>
                             <div class="message-body">
-                                <h5>Kareena Joshua</h5>
-                                <p class="text-muted">Just woke up bruh..</p>
+                                <h5>{{ mess.receiver_name }}</h5>
+                                <p class="text-muted">
+                                    lorem up........
+                                </p>
                             </div>
                         </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://64.media.tumblr.com/7b28774544438d73ca8c1daad11402e0/88958e5f55a67155-fd/s250x400/a9ef3dad54f6c57a53fdeef1a793f0143a9aea27.jpg" />
-                                <div class="active"></div>
-                            </div>
-                            <div class="message-body">
-                                <h5>Dan Smith</h5>
-                                <p class="text-bold">2 New Messages</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://res.cloudinary.com/freecodez/image/upload/v1698067298/images/fy8azbqxhgdrbbijhipe.webp" />
-                            </div>
-                            <div class="message-body">
-                                <h5>Chris Brown</h5>
-                                <p class="text-muted">Lol u right</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7jXK7iCNJK_u4XvbwTkXPx140LlR1qh2XoihxvkMgM2ZvViJaIxaPFleTUJ7SBp9xBw&usqp=CAU" />
-                            </div>
-                            <div class="message-body">
-                                <h5>Lana Rose</h5>
-                                <p class="text-bold">Birthday tomorrow!!</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://i.pinimg.com/236x/95/c4/96/95c496f64dd0e4c6f75f96c0abbbea6b.jpg" />
-                            </div>
-                            <div class="message-body">
-                                <h5>Varun Nair</h5>
-                                <p class="text-muted">Ssup?</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://i.pinimg.com/736x/6d/4b/de/6d4bde9293ac23d4711c828859af20e4.jpg" />
-                                <div class="active"></div>
-                            </div>
-                            <div class="message-body">
-                                <h5>Jahnvi Doifode</h5>
-                                <p class="text-bold">3 New Messages</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://giadinh.mediacdn.vn/296230595582509056/2024/3/17/be-pam8-17106622391232102729692.jpg" />
-                                <div class="active"></div>
-                            </div>
-                            <div class="message-body">
-                                <h5>Pamiuoi</h5>
-                                <p class="text-bold">3 New Messages</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCUvSLipr3Omi-vuTdR3cjav8dZNM-8ib3Uw&s" />
-                                <div class="active"></div>
-                            </div>
-                            <div class="message-body">
-                                <h5>Pamela</h5>
-                                <p class="text-bold">3 New Messages</p>
-                            </div>
-                        </div>
-                        <div class="message">
-                            <div class="profile-pic">
-                                <img src="https://ttol.vietnamnetjsc.vn/images/2024/09/25/09/38/pam-002.jpg" />
-                                <div class="active"></div>
-                            </div>
-                            <div class="message-body">
-                                <h5>Davis Pam</h5>
-                                <p class="text-bold">3 New Messages</p>
-                            </div>
-                        </div>
+                        {% endfor %}                     
                     </div>
                 </div>
                 <div class="friend-requests">

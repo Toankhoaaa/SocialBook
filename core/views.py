@@ -1,3 +1,4 @@
+from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -5,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from sqlalchemy.dialects.mssql.information_schema import views
 
-from .models import Profile, Post, likedPost, folowedPost
+from .models import *
 # Create your views here.
 @login_required(login_url = 'auth_page')
 def index(request):
@@ -13,6 +14,21 @@ def index(request):
     user_profile = Profile.objects.get(user=user_object)
     posts = Post.objects.all()
     post_list = []
+    messages = Message.objects.filter(sender=request.user.username)
+    messages_list = []
+    added_pairs = []
+    for message in messages:
+        if message.room.room_name not in added_pairs:
+            added_pairs.append(message.room.room_name)
+            receiver_user = User.objects.get(username=message.receiver)
+            receiver_profile = Profile.objects.get(user=receiver_user)
+            receiver_profile_img = receiver_profile.profileimg
+            messages_list.append({
+                'room': message.room.room_name,
+                'receiver_name': receiver_user.username,
+                'receiver_profile_img': receiver_profile_img,
+            })
+
     for post in posts:
         # Lấy profile của người dùng đã đăng bài
         user_img = User.objects.get(username=post.user)
@@ -33,7 +49,7 @@ def index(request):
                 'username_post': user_img.username,
             })
 
-    return render(request, 'home.html', {'user_object': user_object ,'user_profile': user_profile, 'post_list': post_list})
+    return render(request, 'home.html', {'user_object': user_object ,'user_profile': user_profile, 'post_list': post_list, 'messages_list': messages_list})
 @login_required(login_url = 'auth_page')
 def settings(request):
     user_profile = Profile.objects.get(user  = request.user)
@@ -196,3 +212,7 @@ def signin(request):
 def logout(request):
     auth.logout(request)
     return redirect('auth_page')
+
+@login_required(login_url = 'auth_page')
+def messageView(request, room_name, username):
+    pass
