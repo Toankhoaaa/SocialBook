@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import MessListView
+
 urlpatterns = [
     path('',views.index, name='index'),
     path('settings/', views.settings, name='settings'),
@@ -10,5 +12,5 @@ urlpatterns = [
     path('liked-post/', views.liked_post, name='liked-post'),
     path('auth/', views.auth_page, name='auth_page'),
     path('logout/',views.logout, name='logout'),
-    path('<str:sender>/<str:receiver>/', views.messageView, name='room'),
+    path('api/messages/', MessListView.as_view(), name='mess-list'),
 ]
