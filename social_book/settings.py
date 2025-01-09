@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'channels',
     'rest_framework',
 ]
 
@@ -71,8 +72,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'social_book.wsgi.application'
+ASGI_APPLICATION = 'social_book.asgi.application'
 
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 

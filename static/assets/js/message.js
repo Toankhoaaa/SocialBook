@@ -52,7 +52,6 @@ $('.right .messages .message').on('click', function (e) {
     });
 });
 
-
 //======================================================================================================================
 
 let createMessageModal = function(imgSrc, username, messList) {
@@ -271,6 +270,7 @@ let createMessageModal = function(imgSrc, username, messList) {
 
     likeBtn.addEventListener('click', function() {
         addLikePost(event, messageContainer);
+        mainContent.scrollTop = mainContent.scrollHeight;
     });
 
     var textSubmit = document.createElement('i');
@@ -279,6 +279,7 @@ let createMessageModal = function(imgSrc, username, messList) {
 
     // Add event listener to textSubmit to send message
     textSubmit.addEventListener('click', function() {
+        console.log("completer")
         var message = inputField.value;
         if (message) {
             event.preventDefault();
@@ -287,11 +288,39 @@ let createMessageModal = function(imgSrc, username, messList) {
             inputField.value = "";  // Clear the input
             textSubmit.classList.add("disNone");
             likeBtn.classList.remove("disNone");
+            // Form submit listener
+            const message = document.getElementById('inputPostText').value;
+            // Determine the WebSocket protocol based on the application's URL
+            const websocketProtocol = window.location.protocol === "https:" ? "wss" : "ws";
+            const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notification/${messList.room_name}/`;
 
+            // Create a new WebSocket connection
+            const socket = new WebSocket(wsEndpoint);
+
+            // Successful connection event
+            socket.onopen = (event) => {
+                console.log("WebSocket connection opened!");
+            };
+
+            // Socket disconnect event
+            socket.onclose = (event) => {
+                console.log("WebSocket connection closed!");
+            };
+            event.preventDefault();
+            socket.send(
+                JSON.stringify({
+                    'message': message,
+                    'room_name': messList.room_name,
+                    'receiver': username,
+                    'sender': messList.sender,
+                })
+            );
             // Auto-scroll to the bottom of messageContainer
             mainContent.scrollTop = mainContent.scrollHeight;
         }
     });
+
+
 
     inputText.appendChild(inputTextDiv);
     inputText.appendChild(likeBtn);
